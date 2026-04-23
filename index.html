@@ -20,24 +20,49 @@
   --mono:'DM Mono',monospace;
 }
 
-/* --- AJOUT ANIMATION D'ENTRÉE --- */
-@keyframes revealApp {
-  0% { opacity: 0; transform: translateY(20px); filter: blur(10px); }
-  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+/* --- SPLASH SCREEN LOGO CENTRAL --- */
+#intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease, visibility 0.6s;
 }
 
-.animate-entrance {
-  animation: revealApp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+.intro-logo {
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: #fff;
+}
+
+.intro-logo span {
+  display: inline-block;
   opacity: 0;
+  transform: translateY(15px);
+  filter: blur(5px);
+  animation: revealApp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-/* ------------------------------- */
+.ai-txt { color: var(--accent2); }
 
-html{background:var(--bg);color:var(--t1);font-family:var(--font);font-size:14px;line-height:1.5}
-body{min-height:100vh}
+/* Décalage individuel des lettres */
+.intro-logo span:nth-child(1) { animation-delay: 0.1s; }
+.intro-logo span:nth-child(2) { animation-delay: 0.2s; }
+.intro-logo span:nth-child(3) { animation-delay: 0.3s; }
+.intro-logo span:nth-child(4) { animation-delay: 0.4s; }
+.intro-logo span:nth-child(5) { animation-delay: 0.5s; }
+.intro-logo span:nth-child(6) { animation-delay: 0.65s; }
+.intro-logo span:nth-child(7) { animation-delay: 0.75s; }
+
+/* Sortie du Splash Screen */
+.intro-finished #intro-overlay {
+  opacity: 0;
+  visibility: hidden;
+}
  
 /* TOPBAR */
 .topbar{position:sticky;top:0;z-index:200;background:rgba(9,12,20,0.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;padding:0 28px;height:54px}
