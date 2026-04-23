@@ -19,6 +19,23 @@
   --font:'DM Sans',system-ui,sans-serif;
   --mono:'DM Mono',monospace;
 }
+
+/* --- AJOUT ANIMATION D'ENTRÉE --- */
+@keyframes revealApp {
+  0% { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+.animate-entrance {
+  animation: revealApp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  opacity: 0;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+/* ------------------------------- */
+
 html{background:var(--bg);color:var(--t1);font-family:var(--font);font-size:14px;line-height:1.5}
 body{min-height:100vh}
  
@@ -227,7 +244,7 @@ tr:hover td{background:var(--glass)}
 </style>
 </head>
 <body>
-<div class="topbar">
+<div class="topbar animate-entrance">
   <div class="logo">Watch<em>AI</em></div>
   <div class="badge">v6 · ENTERPRISE</div>
   <div class="topbar-r">
@@ -240,8 +257,7 @@ tr:hover td{background:var(--glass)}
 <div class="page">
   <div class="config-area" style="display:flex;flex-direction:column;gap:16px">
  
-    <!-- BASELINE -->
-    <div class="baseline-card">
+    <div class="baseline-card animate-entrance delay-1">
       <div class="baseline-label">🏠 Ma marque / Mon entreprise (Référence)</div>
       <div class="g2">
         <div class="field">
@@ -263,8 +279,7 @@ tr:hover td{background:var(--glass)}
       </div>
     </div>
  
-    <!-- CONCURRENTS -->
-    <div class="card">
+    <div class="card animate-entrance delay-2">
       <div class="hd">01 — Concurrents à surveiller</div>
       <div class="g2">
         <div class="field">
@@ -282,8 +297,7 @@ tr:hover td{background:var(--glass)}
       </div>
     </div>
  
-    <!-- PROFONDEUR & MODULES -->
-    <div class="card">
+    <div class="card animate-entrance delay-3">
       <div class="hd">02 — Profondeur & Modules</div>
       <div class="depth-wrap" style="margin-bottom:16px">
         <div class="dcrd on" id="dRapid" onclick="setDepth('rapid')">
@@ -299,35 +313,30 @@ tr:hover td{background:var(--glass)}
     </div>
  
     <div class="err" id="errBox"></div>
-    <button class="launch" id="launchBtn" onclick="launch()" disabled>🚀 Lancer l'analyse Market Intelligence Enterprise</button>
+    <button class="launch animate-entrance delay-3" id="launchBtn" onclick="launch()" disabled>🚀 Lancer l'analyse Market Intelligence Enterprise</button>
     <div class="prog" id="progWrap">
       <div class="prog-row"><div class="spin"></div><span id="progTxt">Initialisation...</span></div>
       <div class="prog-bg"><div class="prog-fill" id="progBar"></div></div>
     </div>
   </div>
  
-  <!-- RESULTS -->
   <div class="res" id="results">
  
-    <!-- QUICK WINS -->
     <div class="qw-panel" id="qwPanel">
       <div class="qw-title">⚡ Quick Wins — Actions prioritaires pour battre la concurrence aujourd'hui</div>
       <div class="qw-grid" id="qwGrid"></div>
     </div>
  
-    <!-- DELTAS BASELINE -->
     <div class="card" id="deltaSection" style="display:none">
       <div class="hd">Deltas vs Ma Marque</div>
       <div class="delta-grid" id="deltaGrid"></div>
     </div>
  
-    <!-- SCORES -->
     <div class="card">
       <div class="hd">Scores de menace concurrentielle</div>
       <div class="sc-grid" id="scGrid"></div>
     </div>
  
-    <!-- SHARE OF VOICE -->
     <div class="card">
       <div class="hd">Share of Voice estimé & Santé des Stocks</div>
       <div class="g2">
@@ -342,20 +351,17 @@ tr:hover td{background:var(--glass)}
       </div>
     </div>
  
-    <!-- RADAR -->
     <div class="radar-card">
       <div class="hd" style="margin-bottom:14px">Radar multi-piliers comparatif</div>
       <canvas id="radarC" style="max-height:300px"></canvas>
       <div class="radar-leg" id="radarLeg"></div>
     </div>
  
-    <!-- TIME MACHINE -->
     <div class="tm-card">
       <div class="hd">⏱ Time Machine — Historique des analyses</div>
       <div id="tmContent"></div>
     </div>
  
-    <!-- TABLE -->
     <div class="card">
       <div class="hd">Tableau comparatif haute densité</div>
       <div class="tbl-filters">
@@ -379,13 +385,11 @@ tr:hover td{background:var(--glass)}
       </div>
     </div>
  
-    <!-- ANALYSES -->
     <div class="card">
       <div class="hd">Analyses détaillées par concurrent</div>
       <div class="an-grid" id="anGrid"></div>
     </div>
  
-    <!-- PLAN D'ATTAQUE -->
     <div class="atk" id="atkPlan" style="display:none">
       <div class="atk-t">🎯 Plan d'attaque stratégique IA</div>
       <div class="atk-steps" id="atkSteps"></div>
@@ -740,4 +744,3 @@ function renderAttack(){
 </script>
 </body>
 </html>
- 
