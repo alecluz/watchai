@@ -93,7 +93,7 @@ R√©ponds UNIQUEMENT avec du JSON valide, sans markdown, sans texte avant ou apr√
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-opus-4-5',',
+        model: 'claude-haiku-4-5-20251001',
         max_tokens: 2000,
         messages: [{ role: 'user', content: prompt }]
       })
