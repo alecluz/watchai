@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>WatchAI v5 — Market Intelligence</title>
+<title>WatchAI v6 — Market Intelligence Enterprise</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
@@ -13,7 +13,7 @@
   --glass:rgba(255,255,255,0.03);--glass2:rgba(255,255,255,0.06);
   --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
   --accent:#6366f1;--accent2:#818cf8;--accent3:#a5b4fc;
-  --green:#22c55e;--amber:#f59e0b;--red:#ef4444;
+  --green:#22c55e;--amber:#f59e0b;--red:#ef4444;--pink:#ec4899;--blue:#3b82f6;
   --t1:#f1f5f9;--t2:#94a3b8;--t3:#475569;
   --r:14px;--r2:8px;
   --font:'DM Sans',system-ui,sans-serif;
@@ -21,55 +21,60 @@
 }
 html{background:var(--bg);color:var(--t1);font-family:var(--font);font-size:14px;line-height:1.5}
 body{min-height:100vh}
-
+ 
 /* TOPBAR */
-.topbar{position:sticky;top:0;z-index:200;background:rgba(9,12,20,0.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;padding:0 28px;height:54px}
+.topbar{position:sticky;top:0;z-index:200;background:rgba(9,12,20,0.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;padding:0 28px;height:54px}
 .logo{font-size:17px;font-weight:700;letter-spacing:-0.04em;color:#fff}
 .logo em{font-style:normal;color:var(--accent2)}
 .badge{background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:var(--accent3);font-size:10px;padding:2px 9px;border-radius:20px;letter-spacing:0.08em;font-weight:600}
 .topbar-r{margin-left:auto;display:flex;gap:8px}
 .btn-sm{background:var(--glass);border:1px solid var(--border2);color:var(--t2);padding:5px 14px;border-radius:var(--r2);cursor:pointer;font-size:12px;font-family:var(--font);transition:all .15s}
 .btn-sm:hover{background:var(--glass2);color:var(--t1)}
-
+ 
 /* PAGE */
 .page{max-width:1280px;margin:0 auto;padding:24px;display:flex;flex-direction:column;gap:18px}
-
+ 
 /* CARD */
 .card{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px}
 .hd{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--t3);margin-bottom:16px;display:flex;align-items:center;gap:10px}
 .hd::after{content:'';flex:1;height:1px;background:var(--border)}
-
+ 
 /* GRID */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:680px){.g2{grid-template-columns:1fr}}
-
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:700px){.g2,.g3{grid-template-columns:1fr}}
+ 
 /* FORM */
 .field{display:flex;flex-direction:column;gap:5px}
 .lbl{font-size:12px;color:var(--t2);font-weight:500}
 input[type=text],textarea,select{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r2);color:var(--t1);font-family:var(--font);font-size:13px;padding:9px 13px;outline:none;width:100%;transition:border-color .15s}
 input[type=text]:focus,textarea:focus,select:focus{border-color:var(--accent)}
 input::placeholder,textarea::placeholder{color:var(--t3)}
-textarea{resize:vertical;min-height:88px;font-family:var(--mono);font-size:12px}
-
+textarea{resize:vertical;min-height:80px;font-family:var(--mono);font-size:12px}
+ 
+/* BASELINE */
+.baseline-card{background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.25);border-radius:var(--r);padding:16px 20px}
+.baseline-label{font-size:11px;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+ 
 /* CHIPS */
 .chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
 .chip{background:var(--bg3);border:1px solid var(--border2);color:var(--t2);border-radius:20px;padding:3px 11px;font-size:11px;cursor:pointer;transition:all .12s}
 .chip:hover{border-color:var(--accent);color:var(--accent2)}
-
+ 
 /* COMP TAGS */
 .comp-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .ctag{display:flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:4px 12px;font-size:12px}
 .ctag-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
 .ctag button{background:none;border:none;cursor:pointer;color:var(--t3);font-size:15px;line-height:1;padding:0}
 .ctag button:hover{color:var(--red)}
-
+ 
 /* DEPTH */
 .depth-wrap{display:flex;gap:10px}
 .dcrd{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:12px 14px;cursor:pointer;transition:all .15s}
 .dcrd.on{border-color:rgba(99,102,241,0.5);background:rgba(99,102,241,0.07)}
 .dcrd-t{font-size:13px;font-weight:600;color:var(--t1)}
 .dcrd-d{font-size:11px;color:var(--t3);margin-top:3px;line-height:1.4}
-
+ 
 /* MODULES */
 .mod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:9px}
 .mcrd{display:flex;align-items:flex-start;gap:10px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:12px 13px;cursor:pointer;transition:all .15s}
@@ -80,12 +85,12 @@ textarea{resize:vertical;min-height:88px;font-family:var(--mono);font-size:12px}
 .mcrd.on .mtick{display:block}
 .mname{font-size:13px;font-weight:500;color:var(--t1)}
 .mdesc{font-size:11px;color:var(--t3);margin-top:2px;line-height:1.4}
-
+ 
 /* LAUNCH */
 .launch{background:linear-gradient(135deg,#6366f1,#8b5cf6);border:none;border-radius:var(--r);padding:14px 32px;color:#fff;font-family:var(--font);font-size:15px;font-weight:600;cursor:pointer;width:100%;transition:opacity .2s}
 .launch:hover:not(:disabled){opacity:.85}
 .launch:disabled{opacity:.35;cursor:not-allowed}
-
+ 
 /* PROGRESS */
 .prog{display:none;flex-direction:column;gap:10px}
 .prog.show{display:flex}
@@ -94,19 +99,38 @@ textarea{resize:vertical;min-height:88px;font-family:var(--mono);font-size:12px}
 .prog-row{font-size:12px;color:var(--t2);display:flex;align-items:center;gap:8px}
 .spin{width:13px;height:13px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
-
+ 
 /* ERROR */
 .err{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);border-radius:var(--r2);padding:12px 16px;color:#f87171;font-size:12px;display:none}
-
+ 
 /* RESULTS */
 .res{display:none;flex-direction:column;gap:18px}
 .res.show{display:flex}
-
+ 
+/* QUICK WINS */
+.qw-panel{background:linear-gradient(135deg,rgba(99,102,241,0.1),rgba(139,92,246,0.08));border:1px solid rgba(99,102,241,0.25);border-radius:var(--r);padding:20px 22px}
+.qw-title{font-size:13px;font-weight:700;color:var(--accent2);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.qw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.qw-item{background:rgba(255,255,255,0.04);border:1px solid rgba(99,102,241,0.2);border-radius:var(--r2);padding:12px 14px;display:flex;align-items:flex-start;gap:10px}
+.qw-num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.qw-text{font-size:12px;color:var(--t1);line-height:1.5}
+ 
+/* DELTA CARDS */
+.delta-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.delta-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px;text-align:center}
+.delta-label{font-size:11px;color:var(--t3);margin-bottom:6px}
+.delta-val{font-size:22px;font-weight:700;letter-spacing:-0.03em}
+.delta-pos{color:var(--green)}
+.delta-neg{color:var(--red)}
+.delta-neu{color:var(--amber)}
+ 
 /* SCORE CARDS */
 .sc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.sc{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px}
+.sc{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;position:relative}
+.sc.is-baseline{border-color:rgba(99,102,241,0.4);background:rgba(99,102,241,0.05)}
+.sc-tag{position:absolute;top:10px;right:10px;font-size:9px;font-weight:700;background:rgba(99,102,241,0.2);color:var(--accent2);padding:2px 7px;border-radius:20px;text-transform:uppercase;letter-spacing:0.08em}
 .sc-name{font-size:12px;font-weight:600;color:var(--t2);margin-bottom:6px}
-.sc-big{font-size:30px;font-weight:700;letter-spacing:-0.05em;line-height:1}
+.sc-big{font-size:28px;font-weight:700;letter-spacing:-0.05em;line-height:1}
 .hi{color:var(--red)}.md{color:var(--amber)}.lo{color:var(--green)}
 .sc-sub{font-size:10px;color:var(--t3);margin-top:2px;margin-bottom:10px}
 .pl{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--t3);margin-bottom:5px}
@@ -114,13 +138,44 @@ textarea{resize:vertical;min-height:88px;font-family:var(--mono);font-size:12px}
 .pl-bg{flex:1;background:var(--bg3);border-radius:100px;height:4px}
 .pl-fill{height:100%;border-radius:100px;transition:width .7s}
 .pl-v{font-size:11px;font-weight:600;color:var(--t2);min-width:22px;text-align:right}
-
+ 
+/* PROBA PROMO */
+.proba-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;margin-top:8px}
+.proba-high{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+.proba-mid{background:rgba(245,158,11,.12);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
+.proba-low{background:rgba(34,197,94,.12);color:#4ade80;border:1px solid rgba(34,197,94,.2)}
+ 
+/* STOCK STATUS */
+.stock-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:600;margin-top:4px}
+.stock-ok{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.2)}
+.stock-warn{background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.2)}
+.stock-bad{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2)}
+.stock-unk{background:rgba(148,163,184,.1);color:var(--t2);border:1px solid var(--border2)}
+ 
 /* RADAR */
 .radar-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);padding:20px}
 .radar-leg{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .rleg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t2)}
 .rleg-d{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-
+ 
+/* SHARE OF VOICE */
+.sov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.sov-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px}
+.sov-name{font-size:12px;font-weight:600;color:var(--t1);margin-bottom:8px}
+.sov-bar-bg{background:var(--bg3);border-radius:100px;height:8px;overflow:hidden;margin-bottom:6px}
+.sov-bar{height:100%;border-radius:100px;transition:width .7s}
+.sov-val{font-size:13px;font-weight:700;color:var(--t1)}
+ 
+/* TIME MACHINE */
+.tm-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);padding:20px}
+.tm-empty{text-align:center;padding:30px;color:var(--t3);font-size:12px}
+.tm-entry{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.tm-entry:last-child{border-bottom:none}
+.tm-date{font-size:11px;color:var(--t3);font-family:var(--mono);min-width:130px}
+.tm-name{font-size:12px;font-weight:500;color:var(--t1);flex:1}
+.tm-scores{display:flex;gap:6px}
+.tm-score{font-size:10px;padding:2px 7px;border-radius:4px;font-weight:600;background:var(--bg3);color:var(--t2)}
+ 
 /* TABLE */
 .tbl-filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
 .tbl-wrap{overflow-x:auto;border-radius:var(--r2);border:1px solid var(--border)}
@@ -138,7 +193,7 @@ tr:hover td{background:var(--glass)}
 .sb-hi{background:rgba(239,68,68,.15);color:#f87171}
 .sb-md{background:rgba(245,158,11,.15);color:#fbbf24}
 .sb-lo{background:rgba(34,197,94,.15);color:#4ade80}
-
+ 
 /* ANALYSES */
 .an-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
 .an-card{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
@@ -149,7 +204,7 @@ tr:hover td{background:var(--glass)}
 .an-t{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;color:var(--t3);margin-bottom:3px}
 .an-b{font-size:12px;color:var(--t2);line-height:1.7;white-space:pre-wrap}
 .an-div{height:1px;background:var(--border)}
-
+ 
 /* ATTACK */
 .atk{background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.2);border-radius:var(--r);padding:22px 24px}
 .atk-t{font-size:14px;font-weight:700;color:var(--accent2);margin-bottom:14px}
@@ -157,30 +212,45 @@ tr:hover td{background:var(--glass)}
 .astep{display:flex;align-items:flex-start;gap:11px}
 .anum{width:22px;height:22px;border-radius:50%;background:rgba(99,102,241,.2);border:1px solid rgba(99,102,241,.4);color:var(--accent2);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 .atxt{font-size:13px;color:var(--t2);line-height:1.65}
-
-@media print{.topbar,.config-area,.prog,.launch,.tbl-filters,.err{display:none!important}body{background:#fff;color:#000}.res{display:flex!important}}
+ 
+/* PRINT */
+@media print{
+  .topbar,.config-area,.prog,.launch,.tbl-filters,.err,.btn-sm{display:none!important}
+  body{background:#fff;color:#000;font-size:12px}
+  .res{display:flex!important}
+  .card,.sc,.an-card,.atk,.qw-panel,.radar-card,.tm-card{background:#fff;border:1px solid #ddd;break-inside:avoid}
+  .sc-big,.qw-text,.an-b,.atxt{color:#000}
+  .sc-name,.an-t,.lbl{color:#555}
+  .hd{color:#888}
+}
 ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:100px}
 </style>
 </head>
 <body>
 <div class="topbar">
   <div class="logo">Watch<em>AI</em></div>
-  <div class="badge">v5 · MARKET INTELLIGENCE</div>
+  <div class="badge">v6 · ENTERPRISE</div>
   <div class="topbar-r">
     <button class="btn-sm" onclick="resetAll()">↺ Reset</button>
+    <button class="btn-sm" onclick="clearHistory()">🗑 Historique</button>
     <button class="btn-sm" onclick="window.print()">⎙ PDF</button>
   </div>
 </div>
-
+ 
 <div class="page">
   <div class="config-area" style="display:flex;flex-direction:column;gap:16px">
-
-    <div class="card">
-      <div class="hd">01 — Contexte & Cibles</div>
+ 
+    <!-- BASELINE -->
+    <div class="baseline-card">
+      <div class="baseline-label">🏠 Ma marque / Mon entreprise (Référence)</div>
       <div class="g2">
         <div class="field">
+          <span class="lbl">URL de ma marque</span>
+          <input type="text" id="baselineUrl" placeholder="ex: fiducial-office.fr"/>
+        </div>
+        <div class="field">
           <span class="lbl">Secteur d'activité</span>
-          <input type="text" id="sector" placeholder="ex: Fournitures bureau B2B, Mode en ligne, SaaS..."/>
+          <input type="text" id="sector" placeholder="ex: Fournitures bureau B2B"/>
           <div class="chips">
             <span class="chip" onclick="setSector('Fournitures bureau B2B')">Fournitures B2B</span>
             <span class="chip" onclick="setSector('Mode & textile e-commerce')">Mode</span>
@@ -188,68 +258,106 @@ tr:hover td{background:var(--glass)}
             <span class="chip" onclick="setSector('Immobilier en ligne')">Immobilier</span>
             <span class="chip" onclick="setSector('SaaS & outils digitaux')">SaaS</span>
             <span class="chip" onclick="setSector('Sport & fitness')">Sport</span>
-            <span class="chip" onclick="setSector('Électronique & high-tech')">High-tech</span>
           </div>
         </div>
+      </div>
+    </div>
+ 
+    <!-- CONCURRENTS -->
+    <div class="card">
+      <div class="hd">01 — Concurrents à surveiller</div>
+      <div class="g2">
         <div class="field">
-          <span class="lbl">Concurrents à analyser</span>
+          <span class="lbl">Ajouter un concurrent</span>
           <div style="display:flex;gap:8px">
             <input type="text" id="compInput" placeholder="ex: bruneau.fr" onkeydown="if(event.key==='Enter')addComp()"/>
             <button class="btn-sm" onclick="addComp()" style="padding:9px 14px;white-space:nowrap">+ Ajouter</button>
           </div>
           <div class="comp-tags" id="compTags"></div>
         </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="hd">02 — SKU & Profondeur</div>
-      <div class="g2">
         <div class="field">
           <span class="lbl">Références / SKU à benchmarker</span>
           <textarea id="skuInput" placeholder="Une ref par ligne :&#10;Ramette A4 80g&#10;Stylo Bic Cristal&#10;Toner HP 26A"></textarea>
         </div>
-        <div class="field">
-          <span class="lbl">Profondeur d'analyse</span>
-          <div class="depth-wrap">
-            <div class="dcrd on" id="dRapid" onclick="setDepth('rapid')">
-              <div class="dcrd-t">⚡ Rapide</div>
-              <div class="dcrd-d">Analyse IA immédiate. Résultat en ~15s.</div>
-            </div>
-            <div class="dcrd" id="dDeep" onclick="setDepth('deep')">
-              <div class="dcrd-t">🔬 Profonde</div>
-              <div class="dcrd-d">Audit pages clés + tunnel. ~45s.</div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
-
+ 
+    <!-- PROFONDEUR & MODULES -->
     <div class="card">
-      <div class="hd">03 — Modules d'analyse</div>
+      <div class="hd">02 — Profondeur & Modules</div>
+      <div class="depth-wrap" style="margin-bottom:16px">
+        <div class="dcrd on" id="dRapid" onclick="setDepth('rapid')">
+          <div class="dcrd-t">⚡ Rapide</div>
+          <div class="dcrd-d">Analyse IA immédiate. ~15s par concurrent.</div>
+        </div>
+        <div class="dcrd" id="dDeep" onclick="setDepth('deep')">
+          <div class="dcrd-t">🔬 Profonde</div>
+          <div class="dcrd-d">Audit pages clés + tunnel d'achat. ~45s.</div>
+        </div>
+      </div>
       <div class="mod-grid" id="modGrid"></div>
     </div>
-
+ 
     <div class="err" id="errBox"></div>
-    <button class="launch" id="launchBtn" onclick="launch()" disabled>🚀 Lancer l'analyse Market Intelligence</button>
+    <button class="launch" id="launchBtn" onclick="launch()" disabled>🚀 Lancer l'analyse Market Intelligence Enterprise</button>
     <div class="prog" id="progWrap">
       <div class="prog-row"><div class="spin"></div><span id="progTxt">Initialisation...</span></div>
       <div class="prog-bg"><div class="prog-fill" id="progBar"></div></div>
     </div>
   </div>
-
+ 
+  <!-- RESULTS -->
   <div class="res" id="results">
+ 
+    <!-- QUICK WINS -->
+    <div class="qw-panel" id="qwPanel">
+      <div class="qw-title">⚡ Quick Wins — Actions prioritaires pour battre la concurrence aujourd'hui</div>
+      <div class="qw-grid" id="qwGrid"></div>
+    </div>
+ 
+    <!-- DELTAS BASELINE -->
+    <div class="card" id="deltaSection" style="display:none">
+      <div class="hd">Deltas vs Ma Marque</div>
+      <div class="delta-grid" id="deltaGrid"></div>
+    </div>
+ 
+    <!-- SCORES -->
     <div class="card">
       <div class="hd">Scores de menace concurrentielle</div>
       <div class="sc-grid" id="scGrid"></div>
     </div>
+ 
+    <!-- SHARE OF VOICE -->
+    <div class="card">
+      <div class="hd">Share of Voice estimé & Santé des Stocks</div>
+      <div class="g2">
+        <div>
+          <div style="font-size:11px;color:var(--t3);margin-bottom:10px;font-weight:600">VISIBILITÉ DIGITALE</div>
+          <div class="sov-grid" id="sovGrid"></div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--t3);margin-bottom:10px;font-weight:600">SANTÉ DES STOCKS</div>
+          <div id="stockGrid" style="display:flex;flex-direction:column;gap:8px"></div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- RADAR -->
     <div class="radar-card">
-      <div class="hd" style="margin-bottom:14px">Radar multi-piliers</div>
+      <div class="hd" style="margin-bottom:14px">Radar multi-piliers comparatif</div>
       <canvas id="radarC" style="max-height:300px"></canvas>
       <div class="radar-leg" id="radarLeg"></div>
     </div>
+ 
+    <!-- TIME MACHINE -->
+    <div class="tm-card">
+      <div class="hd">⏱ Time Machine — Historique des analyses</div>
+      <div id="tmContent"></div>
+    </div>
+ 
+    <!-- TABLE -->
     <div class="card">
-      <div class="hd">Tableau comparatif</div>
+      <div class="hd">Tableau comparatif haute densité</div>
       <div class="tbl-filters">
         <input type="text" style="max-width:220px" id="tSearch" placeholder="Filtrer..." oninput="filterTbl()"/>
         <select style="max-width:180px" id="tSort" onchange="sortTbl()">
@@ -264,27 +372,32 @@ tr:hover td{background:var(--glass)}
       <div class="tbl-wrap">
         <table>
           <thead><tr>
-            <th>Concurrent</th><th>Menace</th><th>Prix</th><th>UX</th><th>SEO</th><th>Tech</th><th>Marketing</th><th>Promos actives</th><th>Livraison</th><th>Statut</th>
+            <th>Concurrent</th><th>Menace</th><th>Prix</th><th>UX</th><th>SEO</th><th>Tech</th><th>Marketing</th><th>Stock</th><th>Share of Voice</th><th>Proba Promo 30j</th><th>Promos actives</th><th>Livraison</th><th>Statut</th>
           </tr></thead>
           <tbody id="tBody"></tbody>
         </table>
       </div>
     </div>
+ 
+    <!-- ANALYSES -->
     <div class="card">
-      <div class="hd">Analyses détaillées</div>
+      <div class="hd">Analyses détaillées par concurrent</div>
       <div class="an-grid" id="anGrid"></div>
     </div>
+ 
+    <!-- PLAN D'ATTAQUE -->
     <div class="atk" id="atkPlan" style="display:none">
-      <div class="atk-t">⚡ Plan d'attaque IA — Actions prioritaires</div>
+      <div class="atk-t">🎯 Plan d'attaque stratégique IA</div>
       <div class="atk-steps" id="atkSteps"></div>
     </div>
+ 
   </div>
 </div>
-
+ 
 <script>
-// ── CONFIG — NE PAS MODIFIER ──────────────────────────────────────────────────
-const BACKEND = '/api/scrape'; // même domaine = pas de CORS
-
+// ── CONFIG ────────────────────────────────────────────────────────────────────
+const BACKEND = '/api/scrape';
+ 
 const MODS = [
   {id:'prices',  n:'Prix & Promos',          d:'Benchmark tarifaire, prix barrés, codes promo'},
   {id:'ux',      n:'Audit UX / Tunnel',      d:'Navigation, checkout, CTA, parcours client'},
@@ -300,19 +413,24 @@ const META = {
   seo:{i:'🔍',t:'SEO / SEA'},tech:{i:'⚡',t:'Performance'},
   stock:{i:'📦',t:'Stocks & Réassurance'},delivery:{i:'🚚',t:'Livraison'},
   loyalty:{i:'🎁',t:'Fidélisation'},threats:{i:'⚠️',t:'Menaces & Opportunités'},
+  general:{i:'📋',t:'Analyse générale'},
 };
 const PCOLS = {prix:'#6366f1',ux:'#22c55e',seo:'#f59e0b',tech:'#3b82f6',marketing:'#ec4899'};
-const RCOLS = ['#6366f1','#22c55e','#f59e0b','#ec4899','#3b82f6','#a855f7'];
-
+const RCOLS = ['#6366f1','#22c55e','#f59e0b','#ec4899','#3b82f6','#a855f7','#14b8a6'];
+const SOV_COLS = ['#6366f1','#22c55e','#f59e0b','#ec4899','#3b82f6','#a855f7'];
+ 
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let comps=[], activeMods=new Set(['prices','ux','seo','tech','stock','threats']);
 let depth='rapid', results=[], tblData=[], radarChart=null;
-
+let history = JSON.parse(localStorage.getItem('watchai_history') || '[]');
+ 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 renderMods();
+renderTimeMachine();
 document.getElementById('sector').addEventListener('input', checkReady);
-
-// ── UI HELPERS ────────────────────────────────────────────────────────────────
+document.getElementById('baselineUrl').addEventListener('input', checkReady);
+ 
+// ── HELPERS ───────────────────────────────────────────────────────────────────
 function setSector(v){document.getElementById('sector').value=v;checkReady()}
 function setDepth(d){
   depth=d;
@@ -341,13 +459,13 @@ function renderMods(){
     </div>`).join('');
 }
 function checkReady(){
-  document.getElementById('launchBtn').disabled=
-    !document.getElementById('sector').value.trim()||comps.length===0||activeMods.size===0;
+  const sector=document.getElementById('sector').value.trim();
+  document.getElementById('launchBtn').disabled=!sector||comps.length===0||activeMods.size===0;
 }
 function showErr(msg){
   const e=document.getElementById('errBox');
   e.textContent='⚠️ '+msg; e.style.display='block';
-  setTimeout(()=>e.style.display='none',6000);
+  setTimeout(()=>e.style.display='none',7000);
 }
 function resetAll(){
   comps=[];results=[];tblData=[];
@@ -355,80 +473,198 @@ function resetAll(){
   activeMods=new Set(['prices','ux','seo','tech','stock','threats']);
   depth='rapid';
   document.getElementById('sector').value='';
+  document.getElementById('baselineUrl').value='';
   document.getElementById('skuInput').value='';
   renderTags();renderMods();
   document.getElementById('results').classList.remove('show');
   setDepth('rapid');checkReady();
 }
+function clearHistory(){
+  if(confirm('Effacer tout l\'historique ?')){
+    localStorage.removeItem('watchai_history');
+    history=[];renderTimeMachine();
+  }
+}
 function setProgress(pct,txt){
   document.getElementById('progBar').style.width=pct+'%';
   document.getElementById('progTxt').textContent=txt;
 }
-
-// ── SCORE HELPERS ─────────────────────────────────────────────────────────────
+ 
+// ── SCORE UTILS ───────────────────────────────────────────────────────────────
 const mCls=s=>s>=65?'hi':s>=35?'md':'lo';
 const pCls=s=>s>=65?'p-r':s>=35?'p-a':'p-g';
 const pLbl=s=>s>=65?'🔴 Élevée':s>=35?'🟡 Modérée':'🟢 Faible';
 const sCls=s=>s>=65?'sb-hi':s>=35?'sb-md':'sb-lo';
 const stP=st=>{const m={Agressif:'p-r',Solide:'p-a',Moyen:'p-a',Faible:'p-g'};return`<span class="pill ${m[st]||'p-a'}">${st||'—'}</span>`};
-
+const probaCls=p=>p>=70?'proba-high':p>=40?'proba-mid':'proba-low';
+const stockCls=s=>({Disponible:'stock-ok',Partiel:'stock-warn',Rupture:'stock-bad',Inconnu:'stock-unk'}[s]||'stock-unk');
+ 
 // ── LAUNCH ────────────────────────────────────────────────────────────────────
 async function launch(){
   const sector=document.getElementById('sector').value.trim();
+  const baselineUrl=document.getElementById('baselineUrl').value.trim();
   const skus=document.getElementById('skuInput').value.trim().split('\n').map(s=>s.trim()).filter(Boolean);
   results=[];
   if(radarChart){radarChart.destroy();radarChart=null}
-
+ 
   document.getElementById('launchBtn').disabled=true;
   document.getElementById('progWrap').classList.add('show');
   document.getElementById('results').classList.remove('show');
   document.getElementById('errBox').style.display='none';
-
-  for(let i=0;i<comps.length;i++){
-    const url=comps[i];
+ 
+  // Analyse baseline si renseigné
+  let baselineResult = null;
+  const allUrls = [];
+  if(baselineUrl){
+    const u = baselineUrl.startsWith('http') ? baselineUrl : 'https://'+baselineUrl;
+    allUrls.push({url:u, isBaseline:true});
+  }
+  comps.forEach(u => allUrls.push({url:u, isBaseline:false}));
+ 
+  for(let i=0;i<allUrls.length;i++){
+    const {url, isBaseline} = allUrls[i];
     const name=url.replace(/https?:\/\/(www\.)?/,'').split('/')[0];
-    setProgress((i/comps.length)*90, `Analyse de ${name}... (${i+1}/${comps.length})`);
+    setProgress((i/allUrls.length)*90, `Analyse de ${name}... (${i+1}/${allUrls.length})`);
     try{
       const r=await fetch(BACKEND,{
         method:'POST',
         headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({url,sector,modules:[...activeMods],skuList:skus,depth})
+        body:JSON.stringify({url,sector,modules:[...activeMods],skuList:skus,depth,isBaseline})
       });
       const d=await r.json();
       if(!r.ok) throw new Error(d.error||`HTTP ${r.status}`);
-      results.push({url,name,...d});
+      const result = {url,name,isBaseline,...d};
+      results.push(result);
+      if(isBaseline) baselineResult = result;
+ 
+      // Sauvegarde Time Machine
+      saveSnapshot(result);
     }catch(e){
       showErr(`Erreur sur ${name}: ${e.message}`);
-      results.push({url,name,scores:{prix:0,ux:0,seo:0,tech:0,marketing:0,menace:0},promos_actives:'Erreur',livraison:'—',statut:'—',analyses:{},plan_attaque:[]});
+      results.push({url,name,isBaseline,scores:{prix:0,ux:0,seo:0,tech:0,marketing:0,menace:0,stock:0},promos_actives:'Erreur',livraison:'—',statut:'—',stock_status:'Inconnu',share_of_voice_estime:0,proba_promo_30j:0,analyses:{},quick_wins:[],plan_attaque:[]});
     }
   }
-
+ 
   setProgress(100,'Rapport prêt !');
   setTimeout(()=>{
     document.getElementById('progWrap').classList.remove('show');
-    render();
+    render(baselineResult);
   },400);
 }
-
+ 
+// ── TIME MACHINE ──────────────────────────────────────────────────────────────
+function saveSnapshot(result){
+  if(!result.snapshot) return;
+  history.unshift({
+    date: new Date().toLocaleString('fr-FR'),
+    name: result.name,
+    url: result.url,
+    scores: result.scores,
+    proba_promo: result.proba_promo_30j||0,
+  });
+  if(history.length>50) history = history.slice(0,50);
+  localStorage.setItem('watchai_history', JSON.stringify(history));
+  renderTimeMachine();
+}
+function renderTimeMachine(){
+  const el=document.getElementById('tmContent');
+  if(!el) return;
+  if(!history.length){
+    el.innerHTML='<div class="tm-empty">Aucune analyse enregistrée. Lance ta première analyse pour démarrer l\'historique.</div>';
+    return;
+  }
+  el.innerHTML=history.slice(0,10).map(h=>`
+    <div class="tm-entry">
+      <div class="tm-date">${h.date}</div>
+      <div class="tm-name">${h.name}</div>
+      <div class="tm-scores">
+        <span class="tm-score">Menace: ${h.scores?.menace||0}</span>
+        <span class="tm-score">Prix: ${h.scores?.prix||0}</span>
+        <span class="tm-score">SEO: ${h.scores?.seo||0}</span>
+        <span class="tm-score">Promo: ${h.proba_promo}%</span>
+      </div>
+    </div>`).join('');
+}
+ 
 // ── RENDER ────────────────────────────────────────────────────────────────────
-function render(){
-  renderScores();renderRadar();renderTable();renderAnalyses();renderAttack();
+function render(baseline){
+  renderQuickWins();
+  renderDeltas(baseline);
+  renderScores();
+  renderSOV();
+  renderRadar();
+  renderTimeMachine();
+  renderTable();
+  renderAnalyses();
+  renderAttack();
   document.getElementById('results').classList.add('show');
   document.getElementById('results').scrollIntoView({behavior:'smooth'});
   document.getElementById('launchBtn').disabled=false;
 }
-
+ 
+// QUICK WINS
+function renderQuickWins(){
+  const allWins=[...new Set(results.flatMap(r=>r.quick_wins||[]))].slice(0,6);
+  document.getElementById('qwGrid').innerHTML=allWins.map((w,i)=>`
+    <div class="qw-item">
+      <div class="qw-num">${i+1}</div>
+      <div class="qw-text">${w}</div>
+    </div>`).join('');
+}
+ 
+// DELTAS
+function renderDeltas(baseline){
+  const sec=document.getElementById('deltaSection');
+  const competitors=results.filter(r=>!r.isBaseline);
+  if(!baseline||!competitors.length){sec.style.display='none';return;}
+  sec.style.display='block';
+  const KEYS=['prix','ux','seo','tech','marketing','menace'];
+  const grid=document.getElementById('deltaGrid');
+  grid.innerHTML=KEYS.map(k=>{
+    const avgComp=competitors.reduce((a,r)=>a+(r.scores?.[k]||0),0)/competitors.length;
+    const delta=Math.round((baseline.scores?.[k]||0)-avgComp);
+    const cls=delta>0?'delta-pos':delta<0?'delta-neg':'delta-neu';
+    const sign=delta>0?'+':'';
+    return`<div class="delta-card">
+      <div class="delta-label">${k.charAt(0).toUpperCase()+k.slice(1)}</div>
+      <div class="delta-val ${cls}">${sign}${delta}</div>
+      <div style="font-size:10px;color:var(--t3);margin-top:3px">vs moyenne concurrents</div>
+    </div>`;
+  }).join('');
+}
+ 
+// SCORES
 function renderScores(){
   const KS=['prix','ux','seo','tech','marketing'];
   document.getElementById('scGrid').innerHTML=results.map(r=>`
-    <div class="sc">
+    <div class="sc ${r.isBaseline?'is-baseline':''}">
+      ${r.isBaseline?'<div class="sc-tag">MA MARQUE</div>':''}
       <div class="sc-name">${r.name}</div>
       <div class="sc-big ${mCls(r.scores?.menace||0)}">${r.scores?.menace||0}<span style="font-size:14px;color:var(--t3);font-weight:400">/100</span></div>
       <div class="sc-sub">Score de menace global</div>
       ${KS.map(k=>`<div class="pl"><span class="pl-n">${k.charAt(0).toUpperCase()+k.slice(1)}</span><div class="pl-bg"><div class="pl-fill" style="width:${r.scores?.[k]||0}%;background:${PCOLS[k]}"></div></div><span class="pl-v">${r.scores?.[k]||0}</span></div>`).join('')}
+      <div class="${probaCls(r.proba_promo_30j||0)} proba-badge">🎯 Promo 30j: ${r.proba_promo_30j||0}%</div>
+      <div class="${stockCls(r.stock_status)} stock-badge">${r.stock_status||'Inconnu'}</div>
     </div>`).join('');
 }
-
+ 
+// SHARE OF VOICE
+function renderSOV(){
+  document.getElementById('sovGrid').innerHTML=results.map((r,i)=>`
+    <div class="sov-card">
+      <div class="sov-name">${r.name}${r.isBaseline?' ⭐':''}</div>
+      <div class="sov-bar-bg"><div class="sov-bar" style="width:${r.share_of_voice_estime||0}%;background:${SOV_COLS[i%SOV_COLS.length]}"></div></div>
+      <div class="sov-val">${r.share_of_voice_estime||0}%</div>
+    </div>`).join('');
+ 
+  document.getElementById('stockGrid').innerHTML=results.map(r=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--glass);border:1px solid var(--border);border-radius:var(--r2)">
+      <span style="font-size:12px;font-weight:500">${r.name}</span>
+      <span class="${stockCls(r.stock_status)} stock-badge">${r.stock_status||'Inconnu'}</span>
+    </div>`).join('');
+}
+ 
+// RADAR
 function renderRadar(){
   const labels=['Prix','UX','SEO','Tech','Marketing'];
   const keys=['prix','ux','seo','tech','marketing'];
@@ -438,22 +674,25 @@ function renderRadar(){
   radarChart=new Chart(ctx,{type:'radar',data:{labels,datasets:results.map((r,i)=>({
     label:r.name,data:keys.map(k=>r.scores?.[k]||0),
     backgroundColor:RCOLS[i%RCOLS.length]+'25',borderColor:RCOLS[i%RCOLS.length],
-    pointBackgroundColor:RCOLS[i%RCOLS.length],borderWidth:2,pointRadius:4
+    pointBackgroundColor:RCOLS[i%RCOLS.length],borderWidth:r.isBaseline?3:2,pointRadius:4,
+    borderDash:r.isBaseline?[]:[5,3]
   }))},options:opts});
-  document.getElementById('radarLeg').innerHTML=results.map((r,i)=>`<div class="rleg"><div class="rleg-d" style="background:${RCOLS[i%RCOLS.length]}"></div>${r.name}</div>`).join('');
+  document.getElementById('radarLeg').innerHTML=results.map((r,i)=>`<div class="rleg"><div class="rleg-d" style="background:${RCOLS[i%RCOLS.length]}"></div>${r.name}${r.isBaseline?' (Ma marque)':''}</div>`).join('');
 }
-
-function renderTable(){
-  tblData=[...results];renderRows(tblData);
-}
+ 
+// TABLE
+function renderTable(){tblData=[...results];renderRows(tblData)}
 function renderRows(data){
   document.getElementById('tBody').innerHTML=data.map(r=>{
     const s=r.scores||{};
-    return`<tr>
-      <td><strong>${r.name}</strong><br><span style="font-size:10px;color:var(--t3)">${r.url.replace(/https?:\/\/(www\.)?/,'').split('/')[0]}</span></td>
+    return`<tr style="${r.isBaseline?'background:rgba(99,102,241,0.05)':''}">
+      <td><strong>${r.name}</strong>${r.isBaseline?' <span style="font-size:9px;color:var(--accent2);font-weight:700">MA MARQUE</span>':''}<br><span style="font-size:10px;color:var(--t3)">${r.url.replace(/https?:\/\/(www\.)?/,'').split('/')[0]}</span></td>
       <td><span class="pill ${pCls(s.menace||0)}">${pLbl(s.menace||0)}</span></td>
       ${['prix','ux','seo','tech','marketing'].map(k=>`<td><span class="sb ${sCls(s[k]||0)}">${s[k]||0}</span></td>`).join('')}
-      <td style="font-size:11px;color:var(--t2);max-width:160px">${r.promos_actives||'—'}</td>
+      <td><span class="${stockCls(r.stock_status)} stock-badge">${r.stock_status||'?'}</span></td>
+      <td><span style="font-size:12px;font-weight:600;color:var(--accent2)">${r.share_of_voice_estime||0}%</span></td>
+      <td><span class="${probaCls(r.proba_promo_30j||0)} proba-badge" style="font-size:10px">${r.proba_promo_30j||0}%</span></td>
+      <td style="font-size:11px;color:var(--t2);max-width:140px">${r.promos_actives||'—'}</td>
       <td style="font-size:11px;color:var(--t2)">${r.livraison||'—'}</td>
       <td>${stP(r.statut)}</td>
     </tr>`;
@@ -467,14 +706,15 @@ function sortTbl(){
   const k=document.getElementById('tSort').value;
   renderRows([...tblData].sort((a,b)=>(b.scores?.[k]||0)-(a.scores?.[k]||0)));
 }
-
+ 
+// ANALYSES
 function renderAnalyses(){
   document.getElementById('anGrid').innerHTML=results.map(r=>{
     const entries=Object.entries(r.analyses||{}).filter(([,v])=>v);
     if(!entries.length)return'';
-    return`<div class="an-card">
+    return`<div class="an-card" style="${r.isBaseline?'border-color:rgba(99,102,241,0.3)':''}">
       <div class="an-head">
-        <div class="an-name">${r.name}</div>
+        <div class="an-name">${r.name}${r.isBaseline?' ⭐':''}</div>
         <span class="pill ${pCls(r.scores?.menace||0)}" style="font-size:10px">${r.scores?.menace||0}/100</span>
         <div class="an-url">${r.url.replace(/https?:\/\/(www\.)?/,'').split('/')[0]}</div>
       </div>
@@ -488,9 +728,10 @@ function renderAnalyses(){
     </div>`;
   }).join('');
 }
-
+ 
+// ATTACK
 function renderAttack(){
-  const steps=results.flatMap(r=>r.plan_attaque||[]);
+  const steps=results.filter(r=>!r.isBaseline).flatMap(r=>r.plan_attaque||[]);
   if(!steps.length)return;
   document.getElementById('atkPlan').style.display='block';
   document.getElementById('atkSteps').innerHTML=steps.slice(0,8).map((s,i)=>`
@@ -499,3 +740,4 @@ function renderAttack(){
 </script>
 </body>
 </html>
+ 
