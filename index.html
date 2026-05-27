@@ -506,21 +506,30 @@ document.getElementById('sector').addEventListener('input', checkReady);
 document.getElementById('baselineUrl').addEventListener('input', checkReady);
 
 // ── SPLASH & ENTRANCE ANIMATION ───────────────────────────────────────────────
-(function() {
+document.addEventListener('DOMContentLoaded', () => {
   const splash = document.getElementById('splash');
   const topbar = document.getElementById('topbar');
   const mainContent = document.getElementById('mainContent');
 
-  // After splash delay: animate out, then reveal page
+  // On s'assure que le contenu est bien masqué avant de lancer l'animation
+  if (mainContent) mainContent.style.opacity = "0";
+
+  // Après le délai du splash screen : animation de sortie puis révélation du site
   setTimeout(() => {
-    splash.classList.add('splash-out');
-    setTimeout(() => {
-      splash.style.display = 'none';
-      topbar.classList.add('visible');
-      mainContent.classList.add('visible');
-    }, 700);
-  }, 2600); // Total splash duration
-})();
+    if (splash) {
+      splash.classList.add('splash-out');
+      
+      setTimeout(() => {
+        splash.style.display = 'none';
+        if (topbar) topbar.classList.add('visible');
+        if (mainContent) {
+          mainContent.style.opacity = ""; // On libère le style inline
+          mainContent.classList.add('visible');
+        }
+      }, 700); // Durée de la transition CSS fadeOut
+    }
+  }, 2600); // Durée totale d'affichage du logo (2.6 secondes)
+});
  
 // ── HELPERS ───────────────────────────────────────────────────────────────────
 function setSector(v){document.getElementById('sector').value=v;checkReady()}
